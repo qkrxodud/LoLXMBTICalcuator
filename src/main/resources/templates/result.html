@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>롤 MBTI 결과</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #4b4b4b; /* Gravity Gray 색상 */
+            color: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+        }
+        .position-img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .description {
+            font-size: 1.5rem; /* 텍스트 크기 조정 */
+            margin-top: 20px; /* 위쪽 여백 추가 */
+            text-align: center; /* 중앙 정렬 */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">당신의 MBTI 유형: <span th:text="${mbtiType}"></span></h1>
+
+    <h2 class="text-center">추천 포지션: <span th:text="${bestPosition}"></span></h2>
+
+    <div class="text-center">
+        <img th:src="@{${LoLPositionDescription.imgSrc}}" class="position-img" alt="추천 포지션 이미지">
+    </div>
+
+    <p class="description" th:text="${LoLPositionDescription.description}"></p> <!-- 클래스 추가 -->
+
+    <div class="text-center">
+        <a href="/questions" class="btn btn-primary">다시 테스트하기</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
