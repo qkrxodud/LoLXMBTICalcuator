@@ -2,6 +2,9 @@ package com.MBTICalcuator.LoLXMBTICalcuator.core.mbti;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -11,36 +14,21 @@ public class LoLPositionCalculatorService {
     }
 
     private PositionMatchRate determineBestPosition(String mbti) {
-        // MBTI 값에 따라 가장 적합한 포지션을 결정하는 로직을 구현합니다.
-        // 예시:
-        switch (mbti) {
-            case "ISTJ":
-            case "ESTJ":
-            case "INTJ":
-                return PositionMatchRate.TOP; // 탑
+        // 포지션별로 매칭되는 MBTI 목록을 정의합니다.
+        Map<PositionMatchRate, List<String>> mbtiMapping = new HashMap<>();
 
-            case "ENFP":
-            case "ESFP":
-            case "ENTP":
-                return PositionMatchRate.JUNGLE; // 정글
+        mbtiMapping.put(PositionMatchRate.TOP, Arrays.asList("ISTJ", "ESTJ", "INTJ"));
+        mbtiMapping.put(PositionMatchRate.JUNGLE, Arrays.asList("ENFP", "ESFP", "ENTP", "ISTP"));
+        mbtiMapping.put(PositionMatchRate.MID, Arrays.asList("INTP", "ENTJ"));
+        mbtiMapping.put(PositionMatchRate.ADC, Arrays.asList("ISFP", "ESFJ", "ESTP"));
+        mbtiMapping.put(PositionMatchRate.SUPPORT, Arrays.asList("INFJ", "ISFJ", "ENFJ", "INFP"));
 
-            case "INTP":
-            case "ENTJ":
-                return PositionMatchRate.MID; // 미드
-
-            case "ISFP":
-            case "ESFJ":
-            case "ESTP":
-                return PositionMatchRate.ADC; // 원딜
-
-            case "INFJ":
-            case "ISFJ":
-            case "ENFJ":
-            case "INFP":
-                return PositionMatchRate.SUPPORT; // 서폿
-
-            default:
-                return null; // 잘못된 MBTI일 경우 null 리턴
-        }
+        // MBTI 값이 어떤 포지션에 해당하는지 확인합니다.
+        return mbtiMapping.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().contains(mbti))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("MBTI 값을 찾을수 없습니다."));
     }
 }

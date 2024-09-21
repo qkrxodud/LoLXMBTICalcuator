@@ -1,6 +1,11 @@
 spring:
+  mvc:
+    throw-exception-if-no-handler-found: true #핸들러를 찾지 못했을 때 예외를 던질지 여부를 결정
+    static-path-pattern: /static/**
+
   activate:
     on-profile: local
+
   sql:
     init:
       mode: always
