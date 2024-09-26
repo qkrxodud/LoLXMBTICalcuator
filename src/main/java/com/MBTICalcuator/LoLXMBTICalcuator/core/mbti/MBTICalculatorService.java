@@ -25,7 +25,7 @@ public class MBTICalculatorService {
         for (MBTIDimension dimension : MBTIDimension.values()) {
             int score = scores.getOrDefault(dimension, 0);
             int totalDimensionQuestions = (int) questions.stream()
-                    .filter(q -> MBTIDimension.valueOf(q.getDimension()) == dimension)
+                    .filter(question -> MBTIDimension.valueOf(question.getDimension()) == dimension)
                     .count(); // Calculate number of questions for this dimension
 
             mbti.append(score > (totalDimensionQuestions / 2) ? dimension.getTypeA() : dimension.getTypeB());

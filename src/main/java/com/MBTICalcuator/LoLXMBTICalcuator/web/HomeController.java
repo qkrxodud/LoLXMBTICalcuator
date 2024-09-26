@@ -23,9 +23,17 @@ public class HomeController {
     private final MBTIService MBTIService;
     private final LoLPositionService loLPositionService;
 
+    @GetMapping("/")
+    public ModelAndView homeQuestions() {
+        ModelAndView modelAndView = new ModelAndView("questions.html"); // 뷰 이름 설정
+        List<Question> questions = questionService.findAllQuestion();
+        modelAndView.addObject("questions", questions);
+        return modelAndView;  // questions.html로 이동
+    }
+
     @GetMapping("/questions")
     public ModelAndView showQuestions() {
-        ModelAndView modelAndView = new ModelAndView("questions.html"); // 뷰 이름 설정
+         ModelAndView modelAndView = new ModelAndView("questions.html"); // 뷰 이름 설정
         List<Question> questions = questionService.findAllQuestion();
         modelAndView.addObject("questions", questions);
         return modelAndView;  // questions.html로 이동

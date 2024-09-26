@@ -14,7 +14,8 @@ public class LoLPositions {
 
     public LoLPosition getLolPositionDescription(PositionMatchRate positionMatchRate) {
          return loLPositions.stream()
-                .filter(loLPosition -> loLPosition.getPositionMatchRate().equals(positionMatchRate))
+                .filter(loLPosition -> loLPosition.getPositionMatchRate()
+                        .equals(positionMatchRate))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("포지션을 찾을수 없습니다."));
     }
