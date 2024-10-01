@@ -1,5 +1,7 @@
 # LoL MBTI Calculator
 
+접근 url : [http://ec2-43-203-238-129.ap-northeast-2.compute.amazonaws.com:8080/questions]
+
 ## 프로젝트 설명
 **LoL MBTI Calculator**는 사용자가 MBTI 질문을 통해 자신의 성격 유형을 확인하고, 해당 MBTI 유형에 기반하여 `League of Legends`(LoL)에서 가장 적합한 역할을 제안해주는 웹 애플리케이션입니다. 이 애플리케이션은 Spring Boot로 개발되었으며, 데이터는 MBTI 질문과 League of Legends 포지션 간의 매핑을 기반으로 구성되어 있습니다.
 
