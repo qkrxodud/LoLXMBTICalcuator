@@ -10,7 +10,8 @@
             color: #f0f0f0;
             font-family: 'Roboto', sans-serif;
             position: relative;
-            overflow: hidden;
+            overflow: auto; /* 전체 화면 스크롤 가능하도록 설정 */
+            height: 100vh; /* 전체 화면 높이 설정 */
         }
 
         .particle {
@@ -39,8 +40,6 @@
             background-color: rgba(44, 44, 44, 0.85);
             border: 1px solid #444;
             margin-bottom: 20px;
-            /* 스크롤 기능 제거 */
-            max-height: none; /* 최대 높이 제거 */
             padding: 20px; /* 카드 내부 패딩 추가 */
         }
 
