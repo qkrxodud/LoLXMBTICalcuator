@@ -13,7 +13,15 @@
 - **결과 공유 버튼**: 테스트 결과를 쉽게 공유할 수 있는 버튼 제공.
 
 ## 프로젝트 구조
-com.example.demo │ ├── controller # 컨트롤러 계층, 웹 요청을 처리 ├── domain # 주요 도메인 클래스 (Question, MBTI, LoLPosition 등) ├── service # 비즈니스 로직 처리 ├── repository # 데이터베이스 연동 및 데이터 관리 ├── resources │ ├── static # 정적 리소스 (CSS, 이미지 등) │ └── templates # Thymeleaf 템플릿 파일 └── application.yml # 애플리케이션 설정 파일
+com.example.demo │
+   ├── controller # 컨트롤러 계층, 웹 요청을 처리 
+   ├── domain # 주요 도메인 클래스 (Question, MBTI, LoLPosition 등) 
+   ├── service # 비즈니스 로직 처리 
+   ├── repository # 데이터베이스 연동 및 데이터 관리
+   ├── resources │ 
+      ├── static # 정적 리소스 (CSS, 이미지 등) 
+      │ └── templates # Thymeleaf 템플릿 파일 
+      └── application.yml # 애플리케이션 설정 파일
 
 
 ## 도메인 설명
