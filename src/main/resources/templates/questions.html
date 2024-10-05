@@ -144,17 +144,12 @@
 
 <script th:inline="javascript">
     const questions = /*[[${questions}]]*/ [];
+    const championImages = /*[[${characters_img}]]*/ [];
 
     if (questions.length === 0) {
         document.getElementById('questions').innerHTML = '<p>질문이 없습니다.</p>';
     } else {
         let currentQuestion = 0;
-
-        const championImages = [
-            'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2acb7715797d4183b09fdbfb902ff52a0aa4e0cf-496x560.jpg',
-            'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/28f2a8ca2e4422674275c5e2d077d6cb4f143d0c-496x560.jpg',
-            'https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5c0a5cedf2e21d887e83674d1c09099633e3cb4e-496x560.jpg',
-        ];
 
         function showQuestion(index) {
             const questionContainer = document.createElement('div');
@@ -174,11 +169,10 @@
                 `;
             document.getElementById('questions').appendChild(questionContainer);
 
-            // 첫 번째 질문만 보이도록 설정
             if (index === 0) {
                 questionContainer.style.display = 'block';
             } else {
-                questionContainer.style.display = 'none'; // 나머지는 숨김
+                questionContainer.style.display = 'none';
             }
         }
 
@@ -189,7 +183,6 @@
         }
 
         function nextQuestion(index, answer) {
-            // 각 질문에 대한 답변을 폼에 추가
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = `question${index + 1}`;
@@ -205,7 +198,6 @@
                 nextQuestionElement.style.display = 'block';
                 updateProgressBar();
             } else {
-                // 결과 페이지로 리다이렉트
                 document.getElementById('questionForm').submit();
             }
         }
@@ -215,24 +207,8 @@
         }
 
         updateProgressBar();
-
-        function addParticles() {
-            const container = document.body;
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                particle.style.width = `${Math.random() * 15 + 10}px`;
-                particle.style.height = particle.style.width;
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(particle);
-            }
-        }
-
-        addParticles();
     }
 </script>
+
 </body>
 </html>
