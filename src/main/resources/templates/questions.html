@@ -87,11 +87,13 @@
         }
 
         .champion-img {
-            max-width: 100%;
+            width: 300px; /* 이미지의 너비를 고정 */
+            height: 500px; /* 이미지의 높이를 고정 */
             border-radius: 10px;
             margin: 0 auto;
             display: block;
             margin-bottom: 20px;
+            object-fit: cover; /* 이미지가 고정된 크기에 맞게 자르기 */
         }
 
         .progress {
