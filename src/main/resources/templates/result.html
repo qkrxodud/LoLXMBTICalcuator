@@ -227,14 +227,23 @@
     function copyLink() {
         const mbtiType = document.getElementById("mbtiType").innerText;
         const url = `${window.location.origin}/share/${mbtiType}`;
-        navigator.clipboard.writeText(url).then(() => {
-            const copyMessage = document.getElementById("copyMessage");
-            copyMessage.classList.add("show");
-            setTimeout(() => {
-                copyMessage.classList.remove("show");
-            }, 2000);
-        });
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url).then(() => {
+                const copyMessage = document.getElementById("copyMessage");
+                copyMessage.classList.add("show");
+                setTimeout(() => {
+                    copyMessage.classList.remove("show");
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('링크 복사에 실패했습니다.');
+            });
+        } else {
+            alert('이 브라우저는 클립보드 복사를 지원하지 않습니다.');
+        }
     }
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
