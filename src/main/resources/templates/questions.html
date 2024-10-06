@@ -1,134 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>롤 MBTI 테스트</title>
+    <title>롤 MBTI 테스트 - 나의 롤 포지션 찾기</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+
         body {
-            background-color: #4b4b4b;
+            background: linear-gradient(135deg, #0a1428 0%, #1e2328 100%);
             color: #f0f0f0;
             font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
             position: relative;
-            overflow: auto; /* 전체 화면 스크롤 가능하도록 설정 */
-            height: 100vh; /* 전체 화면 높이 설정 */
+            overflow-x: hidden;
         }
 
-        .particle {
+        .magic-dust {
             position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 215, 0, 0.5);
             border-radius: 50%;
-            opacity: 0.6;
-            animation: float 3s infinite ease-in-out;
             pointer-events: none;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-20px) scale(1.2);
-            }
-            100% {
-                transform: translateY(0) scale(1);
-            }
+        .container {
+            position: relative;
+            z-index: 1;
         }
 
         .card {
+            background: rgba(13, 27, 42, 0.9);
+            border: 2px solid #c8aa6e;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            background-color: rgba(44, 44, 44, 0.85);
-            border: 1px solid #444;
-            margin-bottom: 20px;
-            padding: 20px; /* 카드 내부 패딩 추가 */
-        }
-
-        .btn-primary, .btn-secondary {
-            width: 100%;
-            font-size: 1.2rem;
-            padding: 10px;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #e67e22;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #d35400;
-        }
-
-        .btn-secondary {
-            background-color: #3498db;
-            border: none;
-        }
-
-        .btn-secondary:hover {
-            background-color: #2980b9;
-        }
-
-        .card-title {
-            font-size: 1.8rem;
-            color: #f0f0f0;
-        }
-
-        .card-text {
-            font-size: 1.2rem;
-            color: #f0f0f0;
-        }
-
-        .mbti-header {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
         }
 
         .champion-img {
-            width: 300px; /* 이미지의 너비를 고정 */
-            height: 500px; /* 이미지의 높이를 고정 */
-            border-radius: 10px;
-            margin: 0 auto;
-            display: block;
-            margin-bottom: 20px;
-            object-fit: cover; /* 이미지가 고정된 크기에 맞게 자르기 */
+            width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(200, 170, 110, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .champion-img:hover {
+            transform: scale(1.05);
+        }
+
+        .mbti-header {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 3rem;
+            color: #c8aa6e;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            text-align: center;
         }
 
         .progress {
             height: 25px;
-            background-color: #444;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #c8aa6e;
+            border-radius: 15px;
+            overflow: hidden;
         }
 
         .progress-bar {
-            background-color: #e67e22;
+            background: linear-gradient(45deg, #c8aa6e, #f0e6d2);
+            transition: width 0.5s ease;
         }
 
-        .button-container {
-            text-align: center;
+        .btn {
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #0397ab, #00cfff);
+            box-shadow: 0 4px 15px rgba(3, 151, 171, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #ab0339, #ff0062);
+            box-shadow: 0 4px 15px rgba(171, 3, 57, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(110%);
+        }
+
+        .question-number {
+            color: #c8aa6e;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @media (max-width: 576px) {
-            .card-title {
-                font-size: 1.5rem;
-            }
-            .card-text {
-                font-size: 1rem;
-            }
-            .btn-primary, .btn-secondary {
-                font-size: 1rem;
-                padding: 10px;
-            }
             .mbti-header {
-                font-size: 1.8rem;
+                font-size: 2rem;
+            }
+            .champion-img {
+                width: 250px;
+                height: 250px;
+            }
+            .btn {
+                padding: 12px 24px;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mbti-header">롤 MBTI 테스트</h1>
+    <h1 class="mbti-header">나의 롤 챔피언 찾기</h1>
 
     <div class="progress mb-4">
         <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
@@ -136,7 +152,6 @@
 
     <form id="questionForm" action="/submitAnswers" method="post">
         <div id="questions"></div>
-        <div class="text-center"></div>
     </form>
 </div>
 
@@ -148,8 +163,31 @@
     const questions = /*[[${questions}]]*/ [];
     const championImages = /*[[${characters_img}]]*/ [];
 
+    // 마법 먼지 효과 생성
+    function createMagicDust() {
+        const dust = document.createElement('div');
+        dust.className = 'magic-dust';
+        dust.style.left = Math.random() * window.innerWidth + 'px';
+        dust.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(dust);
+
+        const animation = dust.animate([
+            { transform: 'translateY(0) scale(1)', opacity: 1 },
+            { transform: 'translateY(-100px) scale(0)', opacity: 0 }
+        ], {
+            duration: 2000,
+            easing: 'ease-out'
+        });
+
+        animation.onfinish = () => {
+            dust.remove();
+        };
+    }
+
+    setInterval(createMagicDust, 100);
+
     if (questions.length === 0) {
-        document.getElementById('questions').innerHTML = '<p>질문이 없습니다.</p>';
+        document.getElementById('questions').innerHTML = '<p>질문을 불러오는 중입니다...</p>';
     } else {
         let currentQuestion = 0;
 
@@ -159,12 +197,16 @@
             questionContainer.innerHTML = `
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <img src="${championImages[index % championImages.length]}" class="champion-img" alt="롤 챔피언 이미지">
-                            <h5 class="card-title">질문 ${index + 1}</h5>
-                            <p class="card-text">${questions[index].questionText}</p>
+                            <img src="${championImages[index % championImages.length]}" class="champion-img" alt="챔피언 이미지">
+                            <div class="question-number">Question ${index + 1}</div>
+                            <p class="question-text">${questions[index].questionText}</p>
                             <div class="button-container">
-                                <button type="button" class="btn btn-primary" onclick="nextQuestion(${index}, 'A')">예</button>
-                                <button type="button" class="btn btn-secondary" onclick="nextQuestion(${index}, 'B')">아니오</button>
+                                <button type="button" class="btn btn-primary" onclick="nextQuestion(${index}, 'A')">
+                                    YES <i class="fas fa-check-circle"></i>
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="nextQuestion(${index}, 'B')">
+                                    NO <i class="fas fa-times-circle"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -185,6 +227,9 @@
         }
 
         function nextQuestion(index, answer) {
+            // 효과음 재생 (선택사항)
+            // new Audio('click-sound.mp3').play();
+
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = `question${index + 1}`;
@@ -200,6 +245,7 @@
                 nextQuestionElement.style.display = 'block';
                 updateProgressBar();
             } else {
+                // 완료 애니메이션
                 document.getElementById('questionForm').submit();
             }
         }
@@ -211,6 +257,5 @@
         updateProgressBar();
     }
 </script>
-
 </body>
 </html>

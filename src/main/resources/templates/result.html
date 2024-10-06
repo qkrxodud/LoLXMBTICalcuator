@@ -3,98 +3,174 @@
 <head>
     <title>롤 MBTI 결과</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 최적화 메타 태그 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+
         body {
-            background-color: #1a1a1a; /* 어두운 배경 */
+            background: linear-gradient(135deg, #13172b, #1a1a2e);
             color: #f0f0f0;
             font-family: 'Roboto', sans-serif;
             overflow-x: hidden;
-        }
-        h1, h2 {
-            font-weight: bold;
-        }
-        .text-center {
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8); /* 텍스트 그림자 */
-        }
-        h1 {
-            color: #00ffff; /* 네온 스타일 색상 */
-        }
-        h2 {
-            color: #ffcc00; /* 대조되는 네온 색상 */
-        }
-        .container {
-            border-radius: 20px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05); /* 투명한 블록 배경 */
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
-        }
-        .position-img {
-            max-width: 100%;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0px 0px 15px #ffcc00; /* 이미지 주변 네온 효과 */
-        }
-        .description {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            text-align: center;
-        }
-        /* "다시 테스트하기" 버튼 디자인 수정 */
-        .btn-primary {
-            background-color: #4d79ff;
-            border: none;
-            font-size: 1.2rem;
-            padding: 10px 25px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease-in-out;
-            width: 100%; /* 모바일에서 버튼 전체 너비 */
-        }
-        .btn-primary:hover {
-            background-color: #3355ff;
-        }
-        .btn-secondary {
-            background-color: #00ffff;
-            border: none;
-            font-size: 1.2rem;
-            padding: 15px 30px;
-            border-radius: 50px;
-            transition: background-color 0.3s ease-in-out, transform 0.3s;
-            box-shadow: 0px 0px 15px #00ffff; /* 네온 버튼 효과 */
-            width: 100%; /* 모바일에서 버튼 전체 너비 */
-        }
-        .btn-secondary:hover {
-            background-color: #00cccc;
-            transform: scale(1.1); /* 버튼을 클릭할 때 확대 */
-        }
-        .share-btn {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* 모바일 최적화: 뷰포트 크기 변경에 따라 레이아웃 조정 */
+        /* 파티클 효과를 위한 스타일 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(20, 25, 45, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 2.5rem;
+            color: #4de6ff;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(77, 230, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        #mbtiType {
+            color: #ff6b6b;
+            font-size: 3rem;
+            display: block;
+            margin-top: 10px;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+        }
+
+        h2 {
+            font-family: 'Black Han Sans', sans-serif;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin: 25px 0;
+        }
+
+        .position-img {
+            max-width: 250px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(77, 230, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .position-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(77, 230, 255, 0.5);
+        }
+
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 4px solid #4de6ff;
+        }
+
+        .btn-primary, .btn-secondary {
+            background: linear-gradient(45deg, #4de6ff, #2c3e50);
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 50px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(77, 230, 255, 0.3);
+        }
+
+        .btn-primary::before, .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover::before, .btn-secondary:hover::before {
+            animation: shine 1s forwards;
+        }
+
+        #copyMessage {
+            color: #4de6ff;
+            font-weight: bold;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #copyMessage.show {
+            opacity: 1;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(77, 230, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(77, 230, 255, 0.8),
+                0 0 30px rgba(77, 230, 255, 0.6);
+            }
+        }
+
+        @keyframes shine {
+            to {
+                left: 100%;
+            }
+        }
+
+        /* 반응형 디자인 */
         @media (max-width: 576px) {
-            .description {
-                font-size: 1.2rem; /* 모바일에서 설명 글자 크기 축소 */
-            }
-            h1 {
-                font-size: 1.5rem; /* 모바일에서 제목 크기 축소 */
-            }
-            h2 {
-                font-size: 1.3rem; /* 모바일에서 부제목 크기 축소 */
-            }
+            h1 { font-size: 2rem; }
+            #mbtiType { font-size: 2.5rem; }
+            h2 { font-size: 1.5rem; }
+            .description { font-size: 1rem; }
+            .container { padding: 15px; margin: 15px; }
             .btn-primary, .btn-secondary {
-                font-size: 1rem; /* 모바일에서 버튼 글자 크기 축소 */
-                padding: 10px; /* 모바일에서 패딩 조정 */
+                width: 90%;
+                margin: 10px auto;
             }
         }
     </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h1 class="text-center">당신의 MBTI 유형: <span id="mbtiType" th:text="${mbtiType}"></span></h1>
+<div class="particles"></div>
+<div class="container">
+    <h1>당신의 롤 MBTI<br><span id="mbtiType" th:text="${mbtiType}"></span></h1>
 
-    <h2 class="text-center">추천 포지션: <span th:text="${bestPosition}"></span></h2>
+    <h2 class="text-center">최적의 포지션: <span th:text="${bestPosition}"></span></h2>
 
     <div class="text-center">
         <img th:src="@{${LoLPositionDescription.imgSrc}}" class="position-img" alt="추천 포지션 이미지">
@@ -102,32 +178,62 @@
 
     <p class="description" th:text="${LoLPositionDescription.description}"></p>
 
-    <div class="text-center">
-        <a href="/questions" class="btn btn-primary">다시 테스트하기</a>
-    </div>
-
-    <div class="text-center share-btn">
-        <button onclick="copyLink()" class="btn btn-secondary">결과 공유하기</button>
-        <p id="copyMessage" style="color: lime; display:none;">링크가 복사되었습니다!</p>
+    <div class="text-center mt-4">
+        <button onclick="location.href='/questions'" class="btn btn-primary">
+            다시 테스트하기
+        </button>
+        <button onclick="copyLink()" class="btn btn-secondary">
+            결과 공유하기
+        </button>
+        <p id="copyMessage">링크가 복사되었습니다!</p>
     </div>
 </div>
 
 <script>
-    function copyLink() {
-        const mbtiType = document.getElementById("mbtiType").innerText; // 현재 MBTI 값을 가져옵니다
-        const url = `${window.location.origin}/share/${mbtiType}`; // 동적으로 URL 생성
-        const tempInput = document.createElement("input");
-        document.body.appendChild(tempInput);
-        tempInput.value = url;
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
+    // 파티클 효과 생성
+    function createParticle() {
+        const particles = document.querySelector('.particles');
+        const particle = document.createElement('div');
 
-        // 복사 완료 메시지 표시
-        document.getElementById("copyMessage").style.display = "block";
-        setTimeout(() => {
-            document.getElementById("copyMessage").style.display = "none";
-        }, 2000);
+        particle.style.position = 'absolute';
+        particle.style.width = '2px';
+        particle.style.height = '2px';
+        particle.style.background = `rgba(77, 230, 255, ${Math.random() * 0.5 + 0.2})`;
+        particle.style.borderRadius = '50%';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+
+        particles.appendChild(particle);
+
+        const animation = particle.animate([
+            { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+            { transform: `translateY(-${Math.random() * 100 + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+        ], {
+            duration: Math.random() * 3000 + 2000,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        });
+
+        animation.onfinish = () => {
+            particle.remove();
+            createParticle();
+        };
+    }
+
+    // 초기 파티클 생성
+    for(let i = 0; i < 50; i++) {
+        createParticle();
+    }
+
+    function copyLink() {
+        const mbtiType = document.getElementById("mbtiType").innerText;
+        const url = `${window.location.origin}/share/${mbtiType}`;
+        navigator.clipboard.writeText(url).then(() => {
+            const copyMessage = document.getElementById("copyMessage");
+            copyMessage.classList.add("show");
+            setTimeout(() => {
+                copyMessage.classList.remove("show");
+            }, 2000);
+        });
     }
 </script>
 
