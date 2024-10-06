@@ -224,25 +224,45 @@
         createParticle();
     }
 
-    function copyLink() {
-        const mbtiType = document.getElementById("mbtiType").innerText;
-        const url = `${window.location.origin}/share/${mbtiType}`;
+    // function copyLink() {
+    //     const mbtiType = document.getElementById("mbtiType").innerText;
+    //     const url = `${window.location.origin}/share/${mbtiType}`;
+    //
+    //     if (navigator.clipboard) {
+    //         navigator.clipboard.writeText(url).then(() => {
+    //             const copyMessage = document.getElementById("copyMessage");
+    //             copyMessage.classList.add("show");
+    //             setTimeout(() => {
+    //                 copyMessage.classList.remove("show");
+    //             }, 2000);
+    //         }).catch(err => {
+    //             console.error('Failed to copy: ', err);
+    //             alert('링크 복사에 실패했습니다.');
+    //         });
+    //     } else {
+    //         alert('이 브라우저는 클립보드 복사를 지원하지 않습니다.');
+    //     }
+    // }
 
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(url).then(() => {
-                const copyMessage = document.getElementById("copyMessage");
-                copyMessage.classList.add("show");
-                setTimeout(() => {
-                    copyMessage.classList.remove("show");
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('링크 복사에 실패했습니다.');
-            });
-        } else {
-            alert('이 브라우저는 클립보드 복사를 지원하지 않습니다.');
-        }
+    function copyLink() {
+        const mbtiType = document.getElementById("mbtiType").innerText; // 현재 MBTI 값을 가져옵니다
+        const url = `${window.location.origin}/share/${mbtiType}`; // 동적으로 URL 생성
+        const tempInput = document.createElement("input");
+        document.body.appendChild(tempInput);
+        tempInput.value = url;
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
+        // 복사 완료 메시지 표시
+        const copyMessage = document.getElementById("copyMessage");
+        copyMessage.classList.add("show");
+        setTimeout(() => {
+            copyMessage.classList.remove("show");
+        }, 2000);
     }
+
+
 
 </script>
 
