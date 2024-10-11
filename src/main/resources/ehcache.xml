@@ -1,0 +1,34 @@
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd">
+
+    <cache alias="lolPositionsCache">
+        <expiry>
+            <ttl unit="hours">24</ttl> <!-- 24시간 동안 캐시 유지 -->
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap> <!-- 최대 1000개의 결과 저장 -->
+            <offheap unit="MB">10</offheap> <!-- 10MB 비휘발성 저장소 -->
+        </resources>
+    </cache>
+
+    <cache alias="questionCache">
+        <expiry>
+            <ttl unit="hours">24</ttl> <!-- 24시간 동안 캐시 유지 -->
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap> <!-- 최대 1000개의 질문 캐시 -->
+            <offheap unit="MB">10</offheap> <!-- 10MB 비휘발성 저장소 -->
+        </resources>
+    </cache>
+
+    <cache alias="charactersCache">
+        <expiry>
+            <ttl unit="hours">24</ttl> <!-- 24시간 동안 캐시 유지 -->
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap> <!-- 최대 1000개의 질문 캐시 -->
+            <offheap unit="MB">10</offheap> <!-- 10MB 비휘발성 저장소 -->
+        </resources>
+    </cache>
+</config>

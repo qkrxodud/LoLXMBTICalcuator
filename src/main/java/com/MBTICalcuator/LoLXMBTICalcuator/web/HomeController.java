@@ -1,5 +1,6 @@
 package com.MBTICalcuator.LoLXMBTICalcuator.web;
 
+import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.LoLPositions;
 import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.PositionMatchRate;
 import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.Question;
 import lombok.RequiredArgsConstructor;
@@ -48,12 +49,14 @@ public class HomeController {
         for (String key : answers.keySet()) {
             answerList.add(answers.get(key)); // 각 질문의 답변을 리스트에 추가
         }
-
-        String mbti = MBTIService.getMBTI(answerList);
+        List<Question> questions = questionService.findAllQuestion();
+        String mbti = MBTIService.getMBTI(answerList, questions);
         PositionMatchRate positionMatchRate = MBTIService.matchLolResults(mbti);
+        LoLPositions loLPositions = loLPositionService.getLoLPositionsDescription();
+
         modelAndView.addObject("mbtiType", mbti);
         modelAndView.addObject("bestPosition", positionMatchRate);
-        modelAndView.addObject("LoLPositionDescription", loLPositionService.getLoLPositionDescription(positionMatchRate));
+        modelAndView.addObject("LoLPositionDescription", loLPositions.getLolPositionDescription(positionMatchRate));
         return modelAndView;
     }
 
@@ -62,9 +65,11 @@ public class HomeController {
     public ModelAndView shareMBTIResult(@PathVariable("mbti") String mbti) {
         ModelAndView modelAndView = new ModelAndView("result.html"); // 뷰 이름 설정
         PositionMatchRate positionMatchRate = MBTIService.matchLolResults(mbti);
+        LoLPositions loLPositions = loLPositionService.getLoLPositionsDescription();
+
         modelAndView.addObject("mbtiType", mbti);
         modelAndView.addObject("bestPosition", positionMatchRate);
-        modelAndView.addObject("LoLPositionDescription", loLPositionService.getLoLPositionDescription(positionMatchRate));
+        modelAndView.addObject("LoLPositionDescription", loLPositions.getLolPositionDescription(positionMatchRate));
         return modelAndView;
     }
 

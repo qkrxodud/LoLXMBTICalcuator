@@ -5,6 +5,7 @@ import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.Characters;
 import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.repository.CharacterRepository;
 import com.MBTICalcuator.LoLXMBTICalcuator.storage.jpa.CharacterJpaEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class CharacterService {
     private final CharacterRepository characterRepository;
 
+    @Cacheable(value = "charactersCache", unless = "#result == null || #result.isEmpty()")
     public List<String> getCharacters() {
         List<CharacterJpaEntity> characterJpaEntities = characterRepository.findAll();
         List<Character> characters = characterJpaEntities.stream()

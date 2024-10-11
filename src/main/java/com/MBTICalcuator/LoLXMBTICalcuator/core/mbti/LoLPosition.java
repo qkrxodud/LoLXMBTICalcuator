@@ -3,9 +3,11 @@ package com.MBTICalcuator.LoLXMBTICalcuator.core.mbti;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
 @Builder
-public class LoLPosition {
+public class LoLPosition implements Serializable {
     private Long id;
     private PositionMatchRate positionMatchRate;
     private String imgSrc;

@@ -3,6 +3,7 @@ package com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.service;
 import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.Question;
 import com.MBTICalcuator.LoLXMBTICalcuator.storage.jpa.QuestionJpaEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.MBTICalcuator.LoLXMBTICalcuator.core.mbti.repository.*;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
+    @Cacheable(value = "questionCache", unless = "#result == null || #result.isEmpty()")
     public List<Question> findAllQuestion() {
         List<QuestionJpaEntity> all = questionRepository.findAll();
         return all.stream()
